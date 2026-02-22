@@ -25,8 +25,9 @@ systemctl start snap.amazon-ssm-agent.amazon-ssm-agent || true
 echo "=== Cloning repository ==="
 git clone --depth 1 --branch Playerbot https://github.com/claudevandort/azerothcore-wotlk.git /opt/wow-server
 
-# Clone mod-playerbots into modules
+# Clone modules
 git clone --depth 1 https://github.com/claudevandort/mod-playerbots.git /opt/wow-server/modules/mod-playerbots
+git clone --depth 1 https://github.com/claudevandort/mod-mount-scaling.git /opt/wow-server/modules/mod-mount-scaling
 
 # Fix permissions: user data runs as root, but containers run as uid 1000
 mkdir -p /opt/wow-server/env/dist/etc /opt/wow-server/env/dist/logs
@@ -47,9 +48,11 @@ services:
   ac-worldserver:
     volumes:
       - ./modules/mod-playerbots:/azerothcore/modules/mod-playerbots
+      - ./modules/mod-mount-scaling:/azerothcore/modules/mod-mount-scaling
   ac-db-import:
     volumes:
       - ./modules/mod-playerbots:/azerothcore/modules/mod-playerbots
+      - ./modules/mod-mount-scaling:/azerothcore/modules/mod-mount-scaling
 OVERRIDE
 
 # Start services
