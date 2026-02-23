@@ -28,6 +28,7 @@ git clone --depth 1 --branch Playerbot https://github.com/claudevandort/azerothc
 # Clone modules
 git clone --depth 1 https://github.com/claudevandort/mod-playerbots.git /opt/wow-server/modules/mod-playerbots
 git clone --depth 1 https://github.com/claudevandort/mod-mount-scaling.git /opt/wow-server/modules/mod-mount-scaling
+git clone --depth 1 https://github.com/claudevandort/mod-mount-feeding.git /opt/wow-server/modules/mod-mount-feeding
 
 # Fix permissions: user data runs as root, but containers run as uid 1000
 mkdir -p /opt/wow-server/env/dist/etc /opt/wow-server/env/dist/logs
@@ -49,10 +50,12 @@ services:
     volumes:
       - ./modules/mod-playerbots:/azerothcore/modules/mod-playerbots
       - ./modules/mod-mount-scaling:/azerothcore/modules/mod-mount-scaling
+      - ./modules/mod-mount-feeding:/azerothcore/modules/mod-mount-feeding
   ac-db-import:
     volumes:
       - ./modules/mod-playerbots:/azerothcore/modules/mod-playerbots
       - ./modules/mod-mount-scaling:/azerothcore/modules/mod-mount-scaling
+      - ./modules/mod-mount-feeding:/azerothcore/modules/mod-mount-feeding
 OVERRIDE
 
 # Start services
